@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User CRUD</title>
+</head>
+<body>
+  <h1>User CRUD with FastAPI + MySQL</h1>
+
+  <h2>Create User</h2>
+  <input type="text" id="name" placeholder="Name">
+  <input type="email" id="email" placeholder="Email">
+  <button onclick="createUser()">Create</button>
+
+  <h2>Get User</h2>
+  <input type="number" id="get_id" placeholder="User ID">
+  <button onclick="getUser()">Get</button>
+  <p id="get_result"></p>
+
+  <h2>Update User</h2>
+  <input type="number" id="update_id" placeholder="User ID">
+  <input type="text" id="update_name" placeholder="New Name">
+  <input type="email" id="update_email" placeholder="New Email">
+  <button onclick="updateUser()">Update</button>
+
+  <h2>Delete User</h2>
+  <input type="number" id="delete_id" placeholder="User ID">
+  <button onclick="deleteUser()">Delete</button>
+
+  <script>
+    const API_URL = "http://localhost:8000";
+
+    async function createUser() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const res = await fetch(`${API_URL}/users/?name=${name}&email=${email}`, { method: "POST" });
+      const data = await res.json();
+      alert("User Created: " + JSON.stringify(data));
+    }
+
+    async function getUser() {
+      const id = document.getElementById("get_id").value;
+      const res = await fetch(`${API_URL}/users/${id}`);
+      const data = await res.json();
+      document.getElementById("get_result").innerText = JSON.stringify(data);
+    }
+
+    async function updateUser() {
+      const id = document.getElementById("update_id").value;
+      const name = document.getElementById("update_name").value;
+      const email = document.getElementById("update_email").value;
+      const res = await fetch(`${API_URL}/users/${id}?name=${name}&email=${email}`, { method: "PUT" });
+      const data = await res.json();
+      alert("User Updated: " + JSON.stringify(data));
+    }
+
+    async function deleteUser() {
+      const id = document.getElementById("delete_id").value;
+      const res = await fetch(`${API_URL}/users/${id}`, { method: "DELETE" });
+      const data = await res.json();
+      alert(data.message);
+    }
+  </script>
+</body>
+</html>

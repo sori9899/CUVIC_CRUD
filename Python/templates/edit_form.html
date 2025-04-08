@@ -1,0 +1,21 @@
+<!-- templates/edit_form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>항목 수정</title>
+</head>
+<body>
+    <h2>항목 수정</h2>
+    <form method="post" action="/update/{{ item.id }}">
+        <label for="title">제목:</label><br>
+        <input type="text" id="title" name="title" value="{{ item.title }}" required><br>
+
+        <label for="content">내용:</label><br>
+        <textarea id="content" name="content" required>{{ item.content }}</textarea><br><br>
+
+        <button type="submit">수정 완료</button>
+    </form>
+    <br>
+    <a href="/">뒤로 가기</a>
+</body>
+</html>

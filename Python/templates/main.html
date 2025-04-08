@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>CUVIC 메인 페이지</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* 상단 배너 */
+        header {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        header .title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        header .nav button {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        header .nav button:hover {
+            background-color: #ddd;
+        }
+
+        /* 중앙 콘텐츠 */
+        main {
+            text-align: center;
+            margin-top: 15vh;
+        }
+
+        main h1 {
+            color: royalblue;
+            font-weight: bold;
+            font-size: 3rem;
+            margin-bottom: 0px;
+        }
+
+        /* 하단 배너 */
+        footer {
+            background-color: black;
+            height: 50px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* 애니메이션 글자 스타일 */
+        .bold40 {
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .light20 {
+            font-size: 20px;
+            font-weight: normal;
+        }
+
+        #learningText{
+            padding-bottom: 50px;
+        }
+
+        .image-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+            gap: 2rem; /* 이미지 사이 간격 */
+        }
+
+        .crud-image {
+            width: 100px;
+            height: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="title">Hello CUVIC!!</div>
+        <div class="nav">
+            <form action="/list" method="get">
+                <button type="submit">Content</button>
+            </form>
+        </div>
+    </header>
+
+    <main>
+        <h1 id="crudText">CRUD</h1>
+        <h3 id="learningText">Learning</h3>
+
+        <div class="image-row">
+            <img src="../img/create.png" alt="Create" class="crud-image">
+            <img src="../img/read.png" alt="Read" class="crud-image">
+            <img src="../img/update.png" alt="Update" class="crud-image">
+            <img src="../img/delete.png" alt="Delete" class="crud-image">
+        </div>
+
+        <div id="map" style="width:100%; height:400px; margin-top: 50px;"></div>
+    </main>
+
+    <footer></footer>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=583a3dafaff20766171d8ec32f8934a6">
+        const crudText = document.getElementById("crudText");
+        const steps = [
+            '<span class="bold100">Create</span>',
+            '<span class="bold100">{Create}</span><span class="light20">RUD</span>',
+            '<span class="light20">C</span><span class="bold100">{Read}</span><span class="light20">UD</span>',
+            '<span class="light20">CR</span><span class="bold100">{Update}</span><span class="light20">D</span>',
+            '<span class="light20">CRU</span><span class="bold100">{Delete}</span>',
+            '<span class="bold100">Create</span>',
+        ];
+
+        let index = 0;
+
+        setInterval(() => {
+            crudText.innerHTML = steps[index];
+            index = (index + 1) % steps.length;
+        }, 1500); // 1.5초 간격으로 변경
+    </script>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=583a3dafaff20766171d8ec32f8934a6"></script>
+    <script>
+
+        var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+        script.onload = () => {
+            kakao.maps.load(() => {
+                const node = document.getElementById('map'); // 지도를 표시할 div
+                const center = new kakao.maps.LatLng(37.50802, 127.062835);
+                const options = {
+                    center,
+                    level: 3
+                };
+                const map = new kakao.maps.Map(node, options);
+            });
+        };
+        
+    </script>
+
+</body>
+</html>

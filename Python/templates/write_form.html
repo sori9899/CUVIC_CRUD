@@ -1,0 +1,17 @@
+<!-- templates/form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>폼 입력</title>
+</head>
+<body>
+    <h2>리스트 입력 폼</h2>
+    <form method="post" action="/submit">
+        <label for="title">제목:</label><br>
+        <input type="text" id="title" name="title" required><br>
+        <label for="content">내용:</label><br>
+        <textarea id="content" name="content" required></textarea><br><br>
+        <button type="submit">등록</button>
+    </form>
+</body>
+</html>

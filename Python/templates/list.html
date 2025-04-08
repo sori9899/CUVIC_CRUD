@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>전체 항목 리스트</title>
+    <style>
+        body { font-family: sans-serif; margin: 2rem; }
+        .item { border-bottom: 1px solid #ccc; margin-bottom: 1rem; padding-bottom: 1rem; }
+        .actions { margin-top: 0.5rem; }
+    </style>
+</head>
+<body>
+    <h1>등록된 항목 목록</h1>
+
+    {% for item in items %}
+        <div class="item">
+            <h2>{{ item.title }}</h2>
+            <p>{{ item.content }}</p>
+            <p><small>등록일: {{ item.created_at }}</small></p>
+            <div class="actions">
+                <a href="/edit/{{ item.id }}">수정</a> |
+                <a href="/delete/{{ item.id }}">삭제</a>
+            </div>
+        </div>
+    {% endfor %}
+
+    <a href="/write">작성하기</a>
+    <a href="/">메인으로 돌아가기</a>
+</body>
+</html>
