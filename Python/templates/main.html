@@ -41,7 +41,10 @@
         /* 중앙 콘텐츠 */
         main {
             text-align: center;
-            margin-top: 15vh;
+            margin-top: 5vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         main h1 {
@@ -89,6 +92,29 @@
             padding-left: 15px;
             padding-right: 15px;
         }
+
+        #map {
+            width: 70%;
+            height: 390px;
+            margin-top: 50px;
+            flex-shrink: 0;
+        }
+
+        .image-item {
+            position: relative;
+            text-align: center;
+        }
+
+        .image-caption {
+            display: none;
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        /* .image-item:hover .image-caption {
+            display: block;
+        } */
     </style>
 </head>
 <body>
@@ -107,13 +133,25 @@
         <h3 id="learningText">Learning</h3>
 
         <div class="image-row">
-            <img src="../img/create.png" alt="Create" class="crud-image">
-            <img src="../img/read.png" alt="Read" class="crud-image">
-            <img src="../img/update.png" alt="Update" class="crud-image">
-            <img src="../img/delete.png" alt="Delete" class="crud-image">
+            <div class="image-item">
+                <img src="../img/create.png" alt="Create" class="crud-image">
+                <div class="image-caption">Create</div>
+            </div>
+            <div class="image-item">
+                <img src="../img/read.png" alt="Read" class="crud-image">
+                <div class="image-caption">Read</div>
+            </div>
+            <div class="image-item">
+                <img src="../img/update.png" alt="Update" class="crud-image">
+                <div class="image-caption">Update</div>
+            </div>
+            <div class="image-item">
+                <img src="../img/delete.png" alt="Delete" class="crud-image">
+                <div class="image-caption">Delete</div>
+            </div>
         </div>
 
-        <div id="map" style="width:100%; height:400px; margin-top: 50px;"></div>
+        <div id="map"></div>
     </main>
 
     <footer></footer>
@@ -139,21 +177,38 @@
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<key>"></script>
     <script>
+        // 사용자 위치 가져오기
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var lat = position.coords.latitude;   // 위도
+            var lon = position.coords.longitude;  // 경도
 
-        var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-        script.onload = () => {
-            kakao.maps.load(() => {
-                const node = document.getElementById('map'); // 지도를 표시할 div
-                const center = new kakao.maps.LatLng(37.50802, 127.062835);
-                const options = {
-                    center,
-                    level: 3
-                };
-                const map = new kakao.maps.Map(node, options);
+            var userPosition = new kakao.maps.LatLng(lat, lon);
+
+            // 지도 생성
+            var mapContainer = document.getElementById('map');
+            var mapOption = {
+            center: userPosition, // 사용자 위치로 중심 잡기
+            level: 3
+            };
+            var map = new kakao.maps.Map(mapContainer, mapOption);
+
+            // 마커 생성
+            var marker = new kakao.maps.Marker({
+            position: userPosition,
+            map: map
             });
-        };
-        
+
+        }, function(error) {
+            alert('위치 정보를 가져올 수 없습니다.');
+        });
+        } else {
+        alert('브라우저가 위치 정보를 지원하지 않습니다.');
+        }
+
+        var map = new kakao.maps.Map(container, options);
     </script>
+
 
 </body>
 </html>
